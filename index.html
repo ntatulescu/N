@@ -7,7 +7,7 @@
     <style>
         /* CSS GENERAL */
         body {
-            background-color: #5D8C51; /* Fundal Verde */
+            background-color: #89CFF0; /* Fundal Verde */
             font-family: Arial, sans-serif;
             margin: 0;
             display: flex;
@@ -87,7 +87,7 @@
             padding: 20px;
             color: #333;
             font-size: 0.9rem;
-            background-color: transparent; /* ACUM E TRANSPARENT (Identic cu fundalul) */
+            background-color: transparent; 
             width: 100%;
             box-sizing: border-box; 
         }
@@ -97,7 +97,7 @@
         .footer a { 
             color: #333; 
             text-decoration: none; 
-            font-weight: normal; /* FĂRĂ BOLD */
+            font-weight: normal; 
         }
         
         .footer a:hover { text-decoration: underline; }
@@ -133,11 +133,16 @@
         function cautaSeria() {
             const inputVal = document.getElementById('searchInput').value.trim().toUpperCase();
             const resultDiv = document.getElementById('result-area');
+            
+            // Ascundem rezultatele anterioare imediat ce apasam butonul
             resultDiv.style.display = "none";
             resultDiv.innerHTML = "";
+
             setTimeout(function() {
                 const result = bazaDeDate.find(item => item.regNo === inputVal);
+
                 if (result) {
+                    // CAZUL 1: Seria a fost găsită
                     resultDiv.style.display = "block";
                     resultDiv.innerHTML = `
                         <div class="result">
@@ -149,10 +154,13 @@
                         </div>
                     `;
                 } else {
-                    resultDiv.style.display = "none";
+                    // CAZUL 2: Seria NU a fost găsită (Mesaj de eroare)
+                    resultDiv.style.display = "block";
+                    // Aici am adăugat stilul inline pentru culoare roșie și bold
+                    resultDiv.innerHTML = `<p style="color: red; font-weight: bold; text-align: center;">Registration number is not valid</p>`;
                 }
 
-            }, 500); // 500 milisecunde = 0.5 secunde
+            }, 500); // 500 milisecunde întârziere
         }
     </script>
 
