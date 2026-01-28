@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>safetyworkcards.de</title>
+    <style>
+        /* CSS GENERAL */
+        body {
+            background-color: #5D8C51; /* Fundal Verde */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            color: #333333; 
+            font-size: 3rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #5CB85C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #449d44;
+        }
+
+        /* REZULTATE */
+        #result-area {
+            margin-top: 30px;
+            color: #333333; 
+            text-align: left; 
+            display: none; 
+            width: 320px;
+        }
+
+        .result p {
+            font-size: 1rem;
+            margin: 5px 0;
+            line-height: 1.5;
+            border: none; 
+            padding: 0;
+        }
+
+        strong { font-weight: bold; }
+
+        /* STIL FOOTER MODIFICAT */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            font-size: 0.9rem;
+            background-color: transparent; /* ACUM E TRANSPARENT (Identic cu fundalul) */
+            width: 100%;
+            box-sizing: border-box; 
+        }
+
+        .footer p { margin: 0; line-height: 1.6; }
+        
+        .footer a { 
+            color: #333; 
+            text-decoration: none; 
+            font-weight: normal; /* FĂRĂ BOLD */
+        }
+        
+        .footer a:hover { text-decoration: underline; }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>Safety Number Check</h1>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Enter Reg-No.">
+            <button onclick="cautaSeria()">Suchen</button>
+        </div>
+
+        <div id="result-area"></div>
+    </div>
+
+    <footer class="footer">
+         <p>© 2015 Safety-Work.eu - Grzegorz Mlodzianowski
+            <br><a href="imprint.html">Imprint</a> | <a href="disclaimer.html">Disclaimer</a>
+        </p>
+    </footer>
+
+    <script>
+        const bazaDeDate = [
+            { regNo: "AV0151567", firstname: "MIRCEA", lastname: "CEAUSU", examinationDate: "07.09.2024", validTo: "06.09.2034", dok: "SCC/VCA DOK 018 BASIC" },
+            { regNo: "XA012367", firstname: "Maria", lastname: "Ionescu", examinationDate: "07.09.2024", validTo: "06.09.2029", dok: "SCC/VCA DOK 018 BASIC" },
+            { regNo: "AV0151821", firstname: "CONSTANTIN-CORNEL", lastname: "DUMITRASCU", examinationDate: "15-03-2024", validTo: "15-03-2030", dok: "SCC/VCA DOK 018 BASIC" }
+        ];
+
+        function cautaSeria() {
+            const inputVal = document.getElementById('searchInput').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('result-area');
+            resultDiv.style.display = "none";
+            resultDiv.innerHTML = "";
+            setTimeout(function() {
+                const result = bazaDeDate.find(item => item.regNo === inputVal);
+                if (result) {
+                    resultDiv.style.display = "block";
+                    resultDiv.innerHTML = `
+                        <div class="result">
+                            <p><strong>Reg-No.:</strong> ${result.regNo}</p>
+                            <p><strong>Name:</strong> ${result.firstname} ${result.lastname}</p>
+                            <p><strong>Date of examination:</strong> ${result.examinationDate}</p>
+                            <p><strong>Valid to:</strong> ${result.validTo}</p>
+                            <p><strong>DOK:</strong> ${result.dok}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.style.display = "none";
+                }
+
+            }, 500); // 500 milisecunde = 0.5 secunde
+        }
+    </script>
+
+</body>
+</html>
